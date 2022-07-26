@@ -7,7 +7,12 @@ dotenv.config();
 let connection =require("./config/connection")
 
 let user_auth = require("./routes/user")
+let buyers = require("./routes/buyers");
+let sellers = require("./routes/sellers")
+
 app.use("/api", user_auth)
+app.use("/api",buyers)
+app.use("/api",sellers)
 
 
 // Body-parser middleware

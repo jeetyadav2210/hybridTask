@@ -1,5 +1,5 @@
 
-let db =require("../config/connection")
+let db = require("../config/connection")
 
 exports.create_catalog = (req, res) => {
     const { userId, name } = req.body
@@ -64,13 +64,33 @@ exports.add_product = (req, res) => {
                         })
                     }
                 });
-            }else{
+            } else {
                 res.json({
                     code: 400,
                     msg: "catalog not found"
                 })
             }
         }
+    })
+}
+
+
+
+exports.orderList = (req, res) => {
+    var sql = "SELECT * FROM orderdetail";
+    db.query(sql, [catalog_id], async function (err, result) {
+        if (err) {
+            res.json({
+                code: 400,
+                msg: err
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: result
+            })
+        }
+
     })
 }
 

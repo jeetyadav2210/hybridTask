@@ -77,11 +77,11 @@ connection.connect(function (err) {
                 console.log(err.message);
             }
         });
-        connection.end(function (err) {
-            if (err) {
-                return console.log(err.message);
-            }
-        });
+        // connection.end(function (err) {
+        //     if (err) {
+        //         return console.log(err.message);
+        //     }
+        // });
     }
 });
 module.exports = connection;
