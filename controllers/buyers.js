@@ -1,17 +1,17 @@
 
-let db =require("../config/connection")
+let db = require("../config/connection")
 
 
 exports.sellers_list = (req, res) => {
     var sql = "SELECT * FROM hybrid_users where type='seller'";
     db.query(sql, function (err, result) {
         console.log(err);
-        if (err){
+        if (err) {
             res.json({
-                code:400,
-                msg:err
+                code: 400,
+                msg: err
             })
-        }else{
+        } else {
             res.send(
                 result
             )
@@ -23,15 +23,15 @@ exports.sellers_list = (req, res) => {
 
 exports.CatalogDetails = (req, res) => {
     let id = req.params.seller_id
-    const queries = 'SELECT * FROM catalog where userId=? JOIN product_items ON product_items.catelogId = catalog.catelogId';
+    const queries = 'SELECT * FROM catalog INNER JOIN product_items ON product_items.catelogId = catalog.catelogId where userId=?';
     var sql = "SELECT * FROM catalog where type='seller'";
-    db.query(queries,[id], function (err, result) {
-        if (err){
+    db.query(queries, [id], function (err, result) {
+        if (err) {
             res.json({
-                code:400,
-                msg:err
+                code: 400,
+                msg: err
             })
-        }else{
+        } else {
             res.send(
                 result
             )
@@ -44,7 +44,8 @@ exports.CatalogDetails = (req, res) => {
 
 
 exports.create_Orders = (req, res) => {
-    const { name, price, catalog_id,userId } = req.body
+    const { orderName, price, catelogId } = req.body
+    let userId =req.params.seller_id
     var sql = "SELECT * FROM hybrid_users Where userId=?";
     db.query(sql, [userId], async function (err, result) {
         if (err) {
@@ -54,7 +55,7 @@ exports.create_Orders = (req, res) => {
             })
         } else {
             if (result.length != 0) {
-                var sql = `INSERT INTO orderdetail (orderName,price,UserId) VALUES ('${name}','${price}','${userId}')`;
+                var sql = `INSERT INTO orderdetail (orderName,price,UserId,catelogId) VALUES ('${orderName}','${price}','${userId}','${catelogId}')`;
                 db.query(sql, function (err, result) {
                     if (err) {
                         res.json({
@@ -64,11 +65,11 @@ exports.create_Orders = (req, res) => {
                     } else {
                         res.json({
                             code: 200,
-                            msg: "products inserted"
+                            msg: "Order added"
                         })
                     }
                 });
-            }else{
+            } else {
                 res.json({
                     code: 400,
                     msg: "User not found"

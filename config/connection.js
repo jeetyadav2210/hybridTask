@@ -42,7 +42,7 @@ connection.connect(function (err) {
 
         let catalog = `create table if not exists Catalog(
             catelogId int primary key auto_increment,
-            name varchar(255)not null,
+            catelogName varchar(255)not null,
             userId int,  FOREIGN KEY (userId)
             REFERENCES hybrid_users(userId) 
         )`;
@@ -70,18 +70,18 @@ connection.connect(function (err) {
                     orderName varchar(255)not null,
                     price varchar(255)not null,
                     UserId int,  FOREIGN KEY (UserId)
-                    REFERENCES hybrid_users(UserId) 
+                    REFERENCES hybrid_users(UserId) ,
+                    
+                    catelogId int,  FOREIGN KEY (catelogId)
+                REFERENCES catalog(catelogId) 
+                    
                 )`;
         connection.query(Orders, function (err, results, fields) {
             if (err) {
                 console.log(err.message);
             }
         });
-        // connection.end(function (err) {
-        //     if (err) {
-        //         return console.log(err.message);
-        //     }
-        // });
+
     }
 });
 module.exports = connection;

@@ -1,5 +1,6 @@
 
 let db =require("../config/connection")
+const jwt = require('jsonwebtoken');
 
 
 exports.Registeration =(req, res) => {

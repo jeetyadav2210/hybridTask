@@ -5,6 +5,7 @@ exports.create_catalog = (req, res) => {
     const { userId, name } = req.body
     var sql = "SELECT * FROM catalog Where userId=?";
     db.query(sql, [userId], async function (err, result) {
+        console.log(err);
         if (err) {
             res.json({
                 code: 400,
@@ -12,8 +13,9 @@ exports.create_catalog = (req, res) => {
             })
         } else {
             if (result.length == 0) {
-                var sql = `INSERT INTO catalog (name,userId) VALUES ('${name}','${userId}')`;
+                var sql = `INSERT INTO catalog (catelogName,userId) VALUES ('${name}','${userId}')`;
                 db.query(sql, function (err, result) {
+                    console.log(err);
                     if (err) {
                         res.json({
                             code: 400,
@@ -78,7 +80,7 @@ exports.add_product = (req, res) => {
 
 exports.orderList = (req, res) => {
     var sql = "SELECT * FROM orderdetail";
-    db.query(sql, [catalog_id], async function (err, result) {
+    db.query(sql, async function (err, result) {
         if (err) {
             res.json({
                 code: 400,

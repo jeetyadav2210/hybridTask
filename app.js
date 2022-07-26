@@ -9,26 +9,15 @@ let connection =require("./config/connection")
 let user_auth = require("./routes/user")
 let buyers = require("./routes/buyers");
 let sellers = require("./routes/sellers")
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use("/api", user_auth)
 app.use("/api",buyers)
 app.use("/api",sellers)
 
 
-// Body-parser middleware
-// app.use(bodyParser.urlencoded({extended:false}))
-// app.use(bodyParser.json())
-// app.use(express.urlencoded({ extended: true }));
 
-// app.use(bodyParser.urlencoded({ extended: false }))
- 
-// parse application/json
-// app.use(bodyParser.json())
-// app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-     
-// parse application/json
-app.use(express.json())
 
 var server = app.listen(5000, function () {
     var host = server.address().address
