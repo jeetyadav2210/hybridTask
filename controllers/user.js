@@ -48,6 +48,7 @@ exports.Login =  (req, res) => {
     var sql = "SELECT * FROM hybrid_users Where username=? And type=?";
     db.query(sql, [username, type], async function (err, result) {
         if (err) {
+            console.log(err);
             res.json({
                 code: 400,
                 msg: err
