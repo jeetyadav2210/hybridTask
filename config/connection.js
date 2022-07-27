@@ -1,17 +1,5 @@
 const mysql = require("mysql2")
 let config = {
-    // HOST: "192.168.7.36",
-    // USER: "akash1",
-    // PASSWORD: "e9UzvykmX1@",
-    // DB: "db_angularcore",
-    // dialect: "mysql",
-    // pool: {
-    //   max: 5,
-    //   min: 0,
-    //   acquire: 30000,
-    //   idle: 10000
-    // }
-
     host: '192.168.7.36',
     user: 'akash1',
     password: 'e9UzvykmX1@',
